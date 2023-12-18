@@ -10,6 +10,32 @@ import (
 	"github.com/hajimehoshi/ebiten/v2/inpututil"
 )
 
+type camera struct {
+	x int
+	y int
+
+	drawable *ebiten.Image
+}
+
+const (
+	sW = 1000
+	sH = 600
+)
+
+func (c *camera) setCam() {
+	c.drawable = ebiten.NewImage(sW, sH)
+}
+
+func (c *camera) setPos(image *ebiten.Image, op *ebiten.DrawImageOptions) {
+	op.GeoM.Translate(-float64(c.x), -float64(c.y))
+
+	c.drawable.DrawImage(image, op)
+}
+
+func (c *camera) camTrans(x, y int) {
+
+}
+
 type Char struct {
 	x  int
 	y  int
