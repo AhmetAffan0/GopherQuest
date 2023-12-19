@@ -33,7 +33,14 @@ func (c *camera) setPos(image *ebiten.Image, op *ebiten.DrawImageOptions) {
 }
 
 func (c *camera) camTrans(x, y int) {
+	c.x += x
+	c.y += y
+}
 
+func (c *camera) render(screen *ebiten.Image) {
+	op := &ebiten.DrawImageOptions{}
+
+	screen.DrawImage(c.drawable, op)
 }
 
 type Char struct {
