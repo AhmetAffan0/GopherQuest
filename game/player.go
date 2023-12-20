@@ -9,13 +9,6 @@ import (
 	"github.com/hajimehoshi/ebiten/v2/inpututil"
 )
 
-type camera struct {
-	x int
-	y int
-
-	drawable *ebiten.Image
-}
-
 type Char struct {
 	x  int
 	y  int
