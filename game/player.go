@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"main/assets"
 
-	"github.com/ebitenui/ebitenui"
 	"github.com/hajimehoshi/ebiten/v2"
 	"github.com/hajimehoshi/ebiten/v2/ebitenutil"
 	"github.com/hajimehoshi/ebiten/v2/inpututil"
@@ -15,32 +14,6 @@ type camera struct {
 	y int
 
 	drawable *ebiten.Image
-}
-
-const (
-	sW = 1000
-	sH = 600
-)
-
-func (c *camera) setCam() {
-	c.drawable = ebiten.NewImage(sW, sH)
-}
-
-func (c *camera) setPos(image *ebiten.Image, op *ebiten.DrawImageOptions) {
-	op.GeoM.Translate(-float64(c.x), -float64(c.y))
-
-	c.drawable.DrawImage(image, op)
-}
-
-func (c *camera) camTrans(x, y int) {
-	c.x += x
-	c.y += y
-}
-
-func (c *camera) render(screen *ebiten.Image) {
-	op := &ebiten.DrawImageOptions{}
-
-	screen.DrawImage(c.drawable, op)
 }
 
 type Char struct {
@@ -98,7 +71,6 @@ func (c *Char) Draw(screen *ebiten.Image) {
 
 type Player struct {
 	player *Char
-	ui     *ebitenui.UI
 }
 
 func (p *Player) Draw(screen *ebiten.Image) {
