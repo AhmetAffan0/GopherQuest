@@ -11,6 +11,7 @@ const (
 )
 
 type Game struct {
+	camera     *camera
 	background Background
 	player     Player
 	ui         *ebitenui.UI
