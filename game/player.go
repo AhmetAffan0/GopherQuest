@@ -1,11 +1,7 @@
 package game
 
 import (
-	"fmt"
-	"main/assets"
-
 	"github.com/hajimehoshi/ebiten/v2"
-	"github.com/hajimehoshi/ebiten/v2/ebitenutil"
 	"github.com/hajimehoshi/ebiten/v2/inpututil"
 )
 
@@ -15,12 +11,13 @@ type Char struct {
 	vx int
 	vy int
 
-	s *ebiten.Image
+	s      *ebiten.Image
+	camera camera
 }
 
 const (
-	unit    = 16
-	groundY = 510
+	groundY = 390
+	unit    = 10
 )
 
 func (c *Char) tryJump() {
@@ -29,7 +26,7 @@ func (c *Char) tryJump() {
 	}
 }
 
-func (c *Char) Update() {
+func (c *Char) update() {
 	c.x += c.vx
 	c.y += c.vy
 
@@ -46,42 +43,23 @@ func (c *Char) Update() {
 	}
 }
 
-func (c *Char) Draw(screen *ebiten.Image) {
-	c.s = assets.IdleSprite
-	if c.vx > 0 {
-		c.s = assets.RightSprite
-	} else if c.vx < 0 {
-		c.s = assets.LeftSprite
-	}
-
-	msg := fmt.Sprintf("Gopher X: %d Gopher Y: %d", c.x, c.y)
-	ebitenutil.DebugPrint(screen, msg)
-	op := &ebiten.DrawImageOptions{}
-	op.GeoM.Scale(0.3, 0.3)
-	op.GeoM.Translate(float64(c.x)/unit, float64(c.y)/unit)
-	screen.DrawImage(c.s, op)
-}
-
 type Player struct {
 	player *Char
 }
 
-func (p *Player) Draw(screen *ebiten.Image) {
-	p.player.Draw(screen)
-}
-
-func (p *Player) Update() {
+func (p *Player) Update() error {
 	if p.player == nil {
 		p.player = &Char{x: 50 * unit, y: groundY * unit}
 	}
 
-	if ebiten.IsKeyPressed(ebiten.KeyA) {
-		p.player.vx = -2 * unit
-	} else if ebiten.IsKeyPressed(ebiten.KeyD) {
-		p.player.vx = 2 * unit
+	if ebiten.IsKeyPressed(ebiten.KeyD) {
+		p.player.vx = 5 * unit // p.camera.vx changing has been cut
+	} else if ebiten.IsKeyPressed(ebiten.KeyA) {
+		p.player.vx = -5 * unit
 	}
 	if inpututil.IsKeyJustPressed(ebiten.KeySpace) {
 		p.player.tryJump()
 	}
-	p.player.Update()
+	p.player.update()
+	return nil
 }
