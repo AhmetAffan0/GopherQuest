@@ -1,10 +1,12 @@
 package game
 
 import (
+	"fmt"
 	"image/color"
 	"main/assets"
 
 	"github.com/hajimehoshi/ebiten/v2"
+	"github.com/hajimehoshi/ebiten/v2/ebitenutil"
 )
 
 const (
@@ -13,9 +15,8 @@ const (
 )
 
 type Game struct {
-	camera     camera
-	background Background
-	player     Player
+	camera camera
+	player Player
 }
 
 func NewGame() *Game {
@@ -26,17 +27,41 @@ func NewGame() *Game {
 
 func (g *Game) Draw(screen *ebiten.Image) {
 	screen.Fill(color.RGBA{0x80, 0xa0, 0xc0, 0xff})
+
 	g.camera.clear()
+
 	op := &ebiten.DrawImageOptions{}
 	op.GeoM.Scale(1, 0.8)
 	g.camera.draw(assets.Ground, op)
+
+	if g.player.player.x < 3020 {
+		op := &ebiten.DrawImageOptions{}
+		op.GeoM.Scale(1, 0.8)
+		op.GeoM.Translate(-1000, 0)
+		g.camera.draw(assets.Ground, op)
+	} else if g.player.player.x > 3020 {
+		op := &ebiten.DrawImageOptions{}
+		op.GeoM.Scale(1, 0.8)
+		op.GeoM.Translate(1000, 0)
+		g.camera.draw(assets.Ground, op)
+	}
+
+	s := assets.IdleSprite
+	if g.player.player.vx > 0 {
+		s = assets.RightSprite
+	} else if g.player.player.vx < 0 {
+		s = assets.LeftSprite
+	}
+
 	op2 := &ebiten.DrawImageOptions{}
 	op2.GeoM.Scale(0.3, 0.3)
 	op2.GeoM.Translate(float64(g.player.player.x)/unit, float64(g.player.player.y)/unit)
-	g.camera.draw(assets.IdleSprite, op2)
-	//g.player.Draw(screen)
+	g.camera.draw(s, op2)
+
 	g.camera.render(screen)
 
+	msg := fmt.Sprintf("Gopher X: %.2f, Y: %.2f", float64(g.player.player.x), float64(g.player.player.y))
+	ebitenutil.DebugPrint(screen, msg)
 }
 
 func (g *Game) Update() error {
