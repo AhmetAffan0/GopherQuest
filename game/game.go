@@ -1,9 +1,9 @@
 package game
 
 import (
+	"image/color"
 	"main/assets"
 
-	"github.com/ebitenui/ebitenui"
 	"github.com/hajimehoshi/ebiten/v2"
 )
 
@@ -13,11 +13,9 @@ const (
 )
 
 type Game struct {
-	camera     *camera
+	camera     camera
 	background Background
 	player     Player
-	ui         *ebitenui.UI
-	print      bool
 }
 
 func NewGame() *Game {
@@ -27,13 +25,15 @@ func NewGame() *Game {
 }
 
 func (g *Game) Draw(screen *ebiten.Image) {
+	screen.Fill(color.RGBA{0x80, 0xa0, 0xc0, 0xff})
 	g.camera.clear()
-	g.camera.draw(assets.Ground, &ebiten.DrawImageOptions{})
 	op := &ebiten.DrawImageOptions{}
-	op.GeoM.Scale(0.8, 0.8)
-	op.GeoM.Translate(float64(g.player.player.x)/unit, float64(g.player.player.y)/unit)
-	g.camera.draw(assets.IdleSprite, op)
-	screen.DrawImage(assets.IdleSprite, op)
+	op.GeoM.Scale(1, 0.8)
+	g.camera.draw(assets.Ground, op)
+	op2 := &ebiten.DrawImageOptions{}
+	op2.GeoM.Scale(0.3, 0.3)
+	op2.GeoM.Translate(float64(g.player.player.x)/unit, float64(g.player.player.y)/unit)
+	g.camera.draw(assets.IdleSprite, op2)
 	//g.player.Draw(screen)
 	g.camera.render(screen)
 
@@ -41,7 +41,7 @@ func (g *Game) Draw(screen *ebiten.Image) {
 
 func (g *Game) Update() error {
 	g.player.Update()
-	g.camera.setPos(g.player.player.x/unit-300, g.player.player.y/unit-400)
+	g.camera.setPos(g.player.player.x/unit-300, 0) //g.player.player.y/unit-400)
 	return nil
 }
 

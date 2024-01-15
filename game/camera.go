@@ -9,18 +9,13 @@ type camera struct {
 	drawable *ebiten.Image // the image that the camera will draw
 }
 
-const (
-	outsideWidth  = 800
-	outsideHeight = 600
-)
-
 func (c *camera) setPos(x, y int) {
 	c.x = x
 	c.y = y
 }
 
 func (c *camera) init() {
-	c.drawable = ebiten.NewImage(outsideWidth, outsideHeight)
+	c.drawable = ebiten.NewImage(800, 600)
 }
 
 func (camera *camera) render(screen *ebiten.Image) {

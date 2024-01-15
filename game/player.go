@@ -53,9 +53,9 @@ func (p *Player) Update() error {
 	}
 
 	if ebiten.IsKeyPressed(ebiten.KeyD) {
-		p.player.vx = 5 * unit // p.camera.vx changing has been cut
+		p.player.vx = 2 * unit // p.camera.vx changing has been cut
 	} else if ebiten.IsKeyPressed(ebiten.KeyA) {
-		p.player.vx = -5 * unit
+		p.player.vx = -2 * unit
 	}
 	if inpututil.IsKeyJustPressed(ebiten.KeySpace) {
 		p.player.tryJump()
