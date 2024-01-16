@@ -13,7 +13,7 @@ type Char struct {
 }
 
 const (
-	groundY = 510
+	groundY = 395
 	unit    = 10
 )
 

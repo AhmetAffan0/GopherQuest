@@ -15,8 +15,8 @@ type Game struct {
 }
 
 const (
-	sW = 800
-	sH = 600
+	sW = 635
+	sH = 475
 )
 
 func NewGame() *Game {
@@ -31,7 +31,7 @@ func (g *Game) Draw(screen *ebiten.Image) {
 	g.camera.clear()
 
 	op := &ebiten.DrawImageOptions{}
-	op.GeoM.Scale(1, 1)
+	op.GeoM.Scale(1, 0.8)
 	op.GeoM.Translate(-3000, 0)
 	g.camera.draw(assets.Ground, op)
 
