@@ -1,3 +1,3 @@
-# Gopher Quest
+# Gopher Walk
 
 A gopher game!!
