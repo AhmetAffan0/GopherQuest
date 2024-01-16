@@ -14,6 +14,11 @@ type Game struct {
 	player Player
 }
 
+const (
+	sW = 800
+	sH = 600
+)
+
 func NewGame() *Game {
 	g := &Game{}
 	g.camera.init()
@@ -26,7 +31,7 @@ func (g *Game) Draw(screen *ebiten.Image) {
 	g.camera.clear()
 
 	op := &ebiten.DrawImageOptions{}
-	op.GeoM.Scale(1, 0.8)
+	op.GeoM.Scale(1, 1)
 	op.GeoM.Translate(-3000, 0)
 	g.camera.draw(assets.Ground, op)
 
@@ -67,5 +72,5 @@ func (g *Game) Update() error {
 }
 
 func (g *Game) Layout(outsideWidth, outsideHeight int) (int, int) {
-	return outsideWidth, outsideHeight
+	return sW, sH
 }
