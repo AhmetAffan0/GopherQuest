@@ -29,12 +29,28 @@ func (g *Game) Draw(screen *ebiten.Image) {
 	op.GeoM.Scale(1, 0.8)
 	g.camera.draw(assets.Ground, op)
 
-	if g.player.player.x < 3020 {
+	if g.player.player.x < 3000 {
 		op := &ebiten.DrawImageOptions{}
 		op.GeoM.Scale(1, 0.8)
 		op.GeoM.Translate(-1000, 0)
 		g.camera.draw(assets.Ground, op)
-	} else if g.player.player.x > 3020 {
+	}
+
+	if g.player.player.x < -7000 {
+		op := &ebiten.DrawImageOptions{}
+		op.GeoM.Scale(1, 0.8)
+		op.GeoM.Translate(-2000, 0)
+		g.camera.draw(assets.Ground, op)
+	}
+
+	if g.player.player.x < -14000 {
+		op := &ebiten.DrawImageOptions{}
+		op.GeoM.Scale(1, 0.8)
+		op.GeoM.Translate(-3000, 0)
+		g.camera.draw(assets.Ground, op)
+	}
+
+	if g.player.player.x > 3000 {
 		op := &ebiten.DrawImageOptions{}
 		op.GeoM.Scale(1, 0.8)
 		op.GeoM.Translate(1000, 0)

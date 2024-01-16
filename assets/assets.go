@@ -4,7 +4,6 @@ import (
 	"embed"
 	"image"
 	_ "image/png"
-	"log"
 
 	"github.com/hajimehoshi/ebiten/v2"
 )
@@ -31,8 +30,4 @@ func GetSingleImage(name string) *ebiten.Image {
 	}
 
 	return ebiten.NewImageFromImage(img)
-}
-
-func WriteLine() {
-	log.Println(IdleSprite)
 }
