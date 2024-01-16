@@ -9,11 +9,6 @@ import (
 	"github.com/hajimehoshi/ebiten/v2/ebitenutil"
 )
 
-const (
-	screenWidth  = 1000
-	screenHeight = 600
-)
-
 type Game struct {
 	camera camera
 	player Player

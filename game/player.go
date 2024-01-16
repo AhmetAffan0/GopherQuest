@@ -10,9 +10,6 @@ type Char struct {
 	y  int
 	vx int
 	vy int
-
-	s      *ebiten.Image
-	camera camera
 }
 
 const (
