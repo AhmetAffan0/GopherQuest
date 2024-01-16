@@ -30,34 +30,6 @@ func (g *Game) Draw(screen *ebiten.Image) {
 	op.GeoM.Translate(-3000, 0)
 	g.camera.draw(assets.Ground, op)
 
-	// if g.player.player.x < 3000 {
-	// 	op := &ebiten.DrawImageOptions{}
-	// 	op.GeoM.Scale(1, 0.8)
-	// 	op.GeoM.Translate(-1000, 0)
-	// 	g.camera.draw(assets.Ground, op)
-	// }
-
-	// if g.player.player.x < -7000 {
-	// 	op := &ebiten.DrawImageOptions{}
-	// 	op.GeoM.Scale(1, 0.8)
-	// 	op.GeoM.Translate(-2000, 0)
-	// 	g.camera.draw(assets.Ground, op)
-	// }
-
-	// if g.player.player.x < -14000 {
-	// 	op := &ebiten.DrawImageOptions{}
-	// 	op.GeoM.Scale(1, 0.8)
-	// 	op.GeoM.Translate(-3000, 0)
-	// 	g.camera.draw(assets.Ground, op)
-	// }
-
-	// if g.player.player.x > 3000 {
-	// 	op := &ebiten.DrawImageOptions{}
-	// 	op.GeoM.Scale(1, 0.8)
-	// 	op.GeoM.Translate(1000, 0)
-	// 	g.camera.draw(assets.Ground, op)
-	// }
-
 	s := assets.IdleSprite
 	if g.player.player.vx > 0 {
 		s = assets.RightSprite
@@ -81,6 +53,15 @@ func (g *Game) Update() error {
 	g.camera.setPos(g.player.player.x/unit-300, 0) //g.player.player.y/unit-400)
 	if g.player.player.x <= -27000 {
 		g.camera.setPos(-3000, 0)
+	}
+	if g.player.player.x <= -30000 {
+		g.player.player.x = -30000
+	}
+	if g.player.player.x >= 26500 {
+		g.camera.setPos(2350, 0)
+	}
+	if g.player.player.x >= 29400 {
+		g.player.player.x = 29400
 	}
 	return nil
 }

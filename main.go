@@ -11,8 +11,6 @@ func main() {
 	log.Println("Game Is Starting...")
 	g := game.NewGame()
 
-	log.Println(g.Update())
-
 	ebiten.SetTPS(144)
 	ebiten.SetWindowTitle("Quest")
 	ebiten.SetWindowResizingMode(ebiten.WindowResizingModeEnabled)
