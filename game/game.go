@@ -64,8 +64,8 @@ func (g *Game) Update() error {
 	g.camera.setPos(g.player.player.x/unit-300, 0) //g.player.player.y/unit-400)
 
 	if g.player.player.x >= 19980 && g.player.player.x <= 20450 {
-		if inpututil.IsKeyJustPressed(ebiten.KeyE) {
-			g.camera.setPos(2500, 0)
+		if inpututil.IsKeyJustPressed(ebiten.KeyW) {
+
 		}
 	}
 
