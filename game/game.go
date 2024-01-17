@@ -36,7 +36,10 @@ func (g *Game) Draw(screen *ebiten.Image) {
 	op.GeoM.Translate(-3000, 0)
 	g.camera.draw(assets.Ground, op)
 
-	g.camera.draw(assets.Platform, &ebiten.DrawImageOptions{})
+	op3 := &ebiten.DrawImageOptions{}
+	op3.GeoM.Scale(0.45, 0.35)
+	op3.GeoM.Translate(2000, 316)
+	g.camera.draw(assets.Door, op3)
 
 	s := assets.IdleSprite
 	if g.player.player.vx > 0 {
@@ -60,16 +63,18 @@ func (g *Game) Update() error {
 	g.player.Update()
 	g.camera.setPos(g.player.player.x/unit-300, 0) //g.player.player.y/unit-400)
 
-	if inpututil.IsKeyJustPressed(ebiten.KeyE) {
-		g.camera.setPos(2450, 0)
-	} else {
-		if g.player.player.x <= -27000 {
-			g.camera.setPos(-3000, 0)
+	if g.player.player.x >= 19980 && g.player.player.x <= 20450 {
+		if inpututil.IsKeyJustPressed(ebiten.KeyE) {
+			g.camera.setPos(2500, 0)
 		}
+	}
 
-		if g.player.player.x >= 26500 {
-			g.camera.setPos(2350, 0)
-		}
+	if g.player.player.x <= -27000 {
+		g.camera.setPos(-3000, 0)
+	}
+
+	if g.player.player.x >= 26500 {
+		g.camera.setPos(2350, 0)
 	}
 
 	return nil
