@@ -56,18 +56,15 @@ func (g *Game) Draw(screen *ebiten.Image) {
 func (g *Game) Update() error {
 	g.player.Update()
 	g.camera.setPos(g.player.player.x/unit-300, 0) //g.player.player.y/unit-400)
+
 	if g.player.player.x <= -27000 {
 		g.camera.setPos(-3000, 0)
 	}
-	if g.player.player.x <= -30000 {
-		g.player.player.x = -30000
-	}
+
 	if g.player.player.x >= 26500 {
 		g.camera.setPos(2350, 0)
 	}
-	if g.player.player.x >= 29400 {
-		g.player.player.x = 29400
-	}
+
 	return nil
 }
 
