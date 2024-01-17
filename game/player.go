@@ -57,6 +57,7 @@ func (p *Player) Update() error {
 	if inpututil.IsKeyJustPressed(ebiten.KeySpace) {
 		p.player.tryJump()
 	}
+
 	if p.player.x <= -30000 {
 		p.player.x = -30000
 	}
