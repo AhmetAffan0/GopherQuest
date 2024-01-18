@@ -3,6 +3,7 @@ package game
 import (
 	"fmt"
 	"image/color"
+	"log"
 	"main/assets"
 
 	"github.com/hajimehoshi/ebiten/v2"
@@ -63,12 +64,11 @@ func (g *Game) Update() error {
 	g.player.Update()
 	g.camera.setPos(g.player.player.x/unit-300, 0) //g.player.player.y/unit-400)
 
-	if g.player.player.x >= 19980 && g.player.player.x <= 20450 {
-		if inpututil.IsKeyJustPressed(ebiten.KeyW) {
-
+	if inpututil.IsKeyJustPressed(ebiten.KeyW) {
+		if g.player.player.x >= 19980 && g.player.player.x <= 20450 {
+			log.Println(g.player.player.x)
 		}
 	}
-
 	if g.player.player.x <= -27000 {
 		g.camera.setPos(-3000, 0)
 	}
