@@ -58,13 +58,13 @@ func (p *Player) Update() error {
 		p.player.tryJump()
 	}
 
-	if p.player.x <= -30000 {
-		p.player.x = -30000
-	}
+	// if p.player.x <= -30000 {
+	// 	p.player.x = -30000
+	// }
 
-	if p.player.x >= 29400 {
-		p.player.x = 29400
-	}
+	// if p.player.x >= 29400 {
+	// 	p.player.x = 29400
+	// }
 
 	p.player.update()
 	return nil

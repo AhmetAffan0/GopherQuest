@@ -60,25 +60,27 @@ func (g *Game) Draw(screen *ebiten.Image) {
 }
 
 func (g *Game) Update() error {
-	var yeet = 0
 	g.player.Update()
-	g.camera.setPos(g.player.player.x/unit-300, yeet)
+	g.camera.setPos(g.player.player.x/unit-300, 0)
 
-	if g.player.player.x <= -27000 {
-		g.camera.setPos(-3000, yeet)
-	}
+	// if inpututil.IsKeyJustPressed(ebiten.KeyW) {
+	// 	if g.player.player.x >= 19980 && g.player.player.x <= 20450 {
+	// 		g.player.player.x = 20000
+	// 		g.camera.setPos(g.player.player.x/unit-300, 0)
+	// 	}
+	// }
 
-	if g.player.player.x >= 26500 {
-		g.camera.setPos(2350, yeet)
-	}
+	// if g.player.player.x <= -27000 {
+	// 	g.camera.setPos(-3000, 0)
+	// }
 
-	if inpututil.IsKeyJustPressed(ebiten.KeyW) {
-		if g.player.player.x >= 19980 && g.player.player.x <= 20450 {
-			g.player.player.x = 20000
-			yeet = 300
+	if g.player.player.x >= 19980 && g.player.player.x <= 20450 {
+		if inpututil.IsKeyJustPressed(ebiten.KeyW) {
+			g.player.player.x = 40000
 		}
-	}
-
+	} //else if g.player.player.x >= 26500 {
+	// 	g.camera.setPos(2350, 0)
+	// }
 	return nil
 }
 
