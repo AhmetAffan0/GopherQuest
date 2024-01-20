@@ -1,3 +1,3 @@
 # Gopher Walk
 
-A gopher game!!
+That's my first functional game!
