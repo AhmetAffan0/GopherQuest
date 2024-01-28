@@ -25,7 +25,10 @@ jobs:
       run: |
           sudo apt-get update
           sudo apt-get install libasound2-dev libgl1-mesa-dev libxcursor-dev libxi-dev libxinerama-dev libxrandr-dev libxxf86vm-dev
-    
+          
+    - name: Cache
+      uses: actions/cache@v4.0.0
+            
           
     - name: go vet (Linux)
       if: runner.os == 'Linux'
