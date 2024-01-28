@@ -27,7 +27,20 @@ jobs:
           sudo apt-get install libasound2-dev libgl1-mesa-dev libxcursor-dev libxi-dev libxinerama-dev libxrandr-dev libxxf86vm-dev
     
           
-          
+    - name: go vet (Linux)
+      if: runner.os == 'Linux'
+      run: |
+        go vet ./...
+
+    - name: go vet (macOS)
+      if: runner.os == 'macOS'
+      run: |
+          go list ./... | grep -v -x -F -f .github/workflows/govetblock_darwin.txt | xargs go vet
+
+    - name: go vet (Windows)
+      if: runner.os == 'Windows'
+      run: |
+          go list ./... | grep -v -x -F -f .github/workflows/govetblock_windows.txt | xargs go vet
 
     - name: Build
       run: go build -v ./...
