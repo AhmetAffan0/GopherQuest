@@ -25,14 +25,9 @@ jobs:
       run: |
           sudo apt-get update
           sudo apt-get install libasound2-dev libgl1-mesa-dev libxcursor-dev libxi-dev libxinerama-dev libxrandr-dev libxxf86vm-dev
+    
           
-    - name: Setup Go environment
-      uses: actions/setup-go@v5.0.0
-
-    - name: paloaltonetworks/cov
-      uses: PaloAltoNetworks/cov@3.2.0
-            
-            
+          
 
     - name: Build
       run: go build -v ./...
