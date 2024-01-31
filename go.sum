@@ -1,7 +1,7 @@
-github.com/ebitengine/purego v0.5.0 h1:JrMGKfRIAM4/QVKaesIIT7m/UVjTj5GYhRSQYwfVdpo=
-github.com/ebitengine/purego v0.5.0/go.mod h1:ah1In8AOtksoNK6yk5z1HTJeUkC1Ez4Wk2idgGslMwQ=
-github.com/hajimehoshi/ebiten/v2 v2.6.3 h1:xJ5klESxhflZbPUx3GdIPoITzgPgamsyv8aZCVguXGI=
-github.com/hajimehoshi/ebiten/v2 v2.6.3/go.mod h1:TZtorL713an00UW4LyvMeKD8uXWnuIuCPtlH11b0pgI=
+github.com/ebitengine/purego v0.6.0-alpha.1 h1:sqv1QBCjn8yiT3EqrUJDT+5OUpwSl9wGQ8SXJSWyNUU=
+github.com/ebitengine/purego v0.6.0-alpha.1/go.mod h1:ah1In8AOtksoNK6yk5z1HTJeUkC1Ez4Wk2idgGslMwQ=
+github.com/hajimehoshi/ebiten/v2 v2.7.0-alpha.2 h1:x5yk42zqi5tAahdeAN6ZVBwYCrwaaCOFtocjFTrvaFg=
+github.com/hajimehoshi/ebiten/v2 v2.7.0-alpha.2/go.mod h1:GC0A1ibF6NZNvF7VuO9LdL5HlMvmBttxJrqUC1s2SVM=
 github.com/jezek/xgb v1.1.0 h1:wnpxJzP1+rkbGclEkmwpVFQWpuE2PUGNUzP8SbfFobk=
 github.com/jezek/xgb v1.1.0/go.mod h1:nrhwO0FX/enq75I7Y7G8iN1ubpSGZEiA3v9e9GyRFlk=
 github.com/yuin/goldmark v1.4.13/go.mod h1:6yULJ656Px+3vBD8DxQVa3kxgyrAnzto9xy5taEt/CY=
