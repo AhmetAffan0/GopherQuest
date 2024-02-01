@@ -41,7 +41,8 @@ func (c *Char) update() {
 }
 
 type Player struct {
-	player *Char
+	player   *Char
+	isBorder bool
 }
 
 func (p *Player) Update() error {
@@ -58,12 +59,14 @@ func (p *Player) Update() error {
 		p.player.tryJump()
 	}
 
-	if p.player.x <= -30000 {
-		p.player.x = -30000
-	}
+	if !p.isBorder {
+		if p.player.x <= -30000 {
+			p.player.x = -30000
+		}
 
-	if p.player.x >= 29400 {
-		p.player.x = 29400
+		if p.player.x >= 29400 {
+			p.player.x = 29400
+		}
 	}
 
 	p.player.update()

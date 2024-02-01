@@ -6,12 +6,15 @@ import (
 
 	"github.com/hajimehoshi/ebiten/v2"
 	"github.com/hajimehoshi/ebiten/v2/ebitenutil"
+	"github.com/hajimehoshi/ebiten/v2/inpututil"
 	assets "github.com/lidldev/GameResources"
 )
 
 type Game struct {
 	camera camera
 	player Player
+
+	background Background
 }
 
 const (
@@ -30,10 +33,7 @@ func (g *Game) Draw(screen *ebiten.Image) {
 
 	g.camera.clear()
 
-	op := &ebiten.DrawImageOptions{}
-	op.GeoM.Scale(1, 0.8)
-	op.GeoM.Translate(-3000, 0)
-	g.camera.draw(assets.GopherWalkBackground, op)
+	g.background.ChangeScene(&g.camera)
 
 	op3 := &ebiten.DrawImageOptions{}
 	op3.GeoM.Scale(0.45, 0.35)
@@ -45,6 +45,14 @@ func (g *Game) Draw(screen *ebiten.Image) {
 		s = assets.GopherRight
 	} else if g.player.player.vx < 0 {
 		s = assets.GopherLeft
+	}
+
+	if g.player.player.x >= 19900 && g.player.player.x <= 20400 {
+		op := &ebiten.DrawImageOptions{}
+		op.GeoM.Scale(1, 0.4)
+		op.GeoM.Translate(-3000, 0)
+		g.camera.draw(assets.GopherJumpBackground, op)
+		g.background.ChangeScene(&g.camera)
 	}
 
 	op2 := &ebiten.DrawImageOptions{}
@@ -69,6 +77,15 @@ func (g *Game) Update() error {
 	if g.player.player.x >= 26500 {
 		g.camera.setPos(2350, 0)
 	}
+
+	if g.player.player.x >= 19900 && g.player.player.x <= 20500 {
+		if inpututil.IsKeyJustPressed(ebiten.KeyW) {
+			g.player.isBorder = true
+			g.background.isDrawed = false
+			g.player.player.x = 0
+		}
+	}
+
 	return nil
 }
 

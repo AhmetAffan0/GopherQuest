@@ -7,7 +7,6 @@ require github.com/hajimehoshi/ebiten/v2 v2.7.0-alpha.2
 require github.com/lidldev/GameResources v0.0.0-20240201104732-fa366f3335f1
 
 require (
-	//github.com/lidldev/GopherWalk v0.0.0-20211003141801-8b9b9b0b9b9b // indirect
 	github.com/ebitengine/purego v0.6.0-alpha.1 // indirect
 	github.com/jezek/xgb v1.1.0 // indirect
 	golang.org/x/exp/shiny v0.0.0-20230817173708-d852ddb80c63 // indirect
