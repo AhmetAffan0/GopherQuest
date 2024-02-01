@@ -3,10 +3,10 @@ package game
 import (
 	"fmt"
 	"image/color"
-	"main/assets"
 
 	"github.com/hajimehoshi/ebiten/v2"
 	"github.com/hajimehoshi/ebiten/v2/ebitenutil"
+	assets "github.com/lidldev/GameResources"
 )
 
 type Game struct {
@@ -33,18 +33,18 @@ func (g *Game) Draw(screen *ebiten.Image) {
 	op := &ebiten.DrawImageOptions{}
 	op.GeoM.Scale(1, 0.8)
 	op.GeoM.Translate(-3000, 0)
-	g.camera.draw(assets.Ground, op)
+	g.camera.draw(assets.GopherWalkBackground, op)
 
 	op3 := &ebiten.DrawImageOptions{}
 	op3.GeoM.Scale(0.45, 0.35)
 	op3.GeoM.Translate(2000, 316)
 	g.camera.draw(assets.Door, op3)
 
-	s := assets.IdleSprite
+	s := assets.GopherIdle
 	if g.player.player.vx > 0 {
-		s = assets.RightSprite
+		s = assets.GopherRight
 	} else if g.player.player.vx < 0 {
-		s = assets.LeftSprite
+		s = assets.GopherLeft
 	}
 
 	op2 := &ebiten.DrawImageOptions{}
