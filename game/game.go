@@ -16,6 +16,8 @@ type Game struct {
 
 	background Background
 	myBool     bool
+
+	Door *ebiten.Image
 }
 
 const (
@@ -36,10 +38,12 @@ func (g *Game) Draw(screen *ebiten.Image) {
 
 	g.background.ChangeScene(&g.camera, g)
 
+	g.Door = assets.Door
+
 	op3 := &ebiten.DrawImageOptions{}
 	op3.GeoM.Scale(0.45, 0.35)
 	op3.GeoM.Translate(2000, 316)
-	g.camera.draw(assets.Door, op3)
+	g.camera.draw(g.Door, op3)
 
 	s := assets.GopherIdle
 	if g.player.player.vx > 0 {
