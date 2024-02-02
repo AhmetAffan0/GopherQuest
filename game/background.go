@@ -6,16 +6,24 @@ import (
 )
 
 type Background struct {
-	image    *ebiten.Image
+	image *ebiten.Image
+
 	isDrawed bool
 }
 
-func (b *Background) ChangeScene(c *camera) {
+func (b *Background) ChangeScene(c *camera, g *Game) {
 	b.image = assets.GopherWalkBackground
 
-	op := &ebiten.DrawImageOptions{}
-	op.GeoM.Scale(1, 0.8)
-	op.GeoM.Translate(-3000, 0)
-	c.draw(b.image, op)
-
+	if g.myBool {
+		op := &ebiten.DrawImageOptions{}
+		op.GeoM.Scale(1, 0.4)
+		op.GeoM.Translate(-3000, 0)
+		c.draw(assets.GopherJumpBackground, op)
+		b.image.Clear()
+	} else {
+		op := &ebiten.DrawImageOptions{}
+		op.GeoM.Scale(1, 0.8)
+		op.GeoM.Translate(-3000, 0)
+		c.draw(b.image, op)
+	}
 }
