@@ -16,9 +16,9 @@ func (b *Background) ChangeScene(c *camera, g *Game) {
 
 	if g.myBool {
 		op := &ebiten.DrawImageOptions{}
-		op.GeoM.Scale(1, 0.4)
+		op.GeoM.Scale(1, 0.79)
 		op.GeoM.Translate(-3000, 0)
-		c.draw(assets.GopherJumpBackground, op)
+		c.draw(assets.GopherWalkBackground2, op)
 		b.image.Clear()
 		g.Door.Clear()
 	} else {

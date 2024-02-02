@@ -4,7 +4,7 @@ go 1.21.6
 
 require github.com/hajimehoshi/ebiten/v2 v2.7.0-alpha.2
 
-require github.com/lidldev/GameResources v0.0.0-20240201104732-fa366f3335f1
+require github.com/lidldev/GameResources v0.0.0-20240202154109-c888664143f3
 
 require (
 	github.com/ebitengine/purego v0.6.0-alpha.1 // indirect
