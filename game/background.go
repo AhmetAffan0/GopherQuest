@@ -11,8 +11,21 @@ type Background struct {
 	isDrawed bool
 }
 
-func (b *Background) ChangeScene(c *camera, g *Game) {
+func (b *Background) ChangeScene(screen *ebiten.Image, c *camera, g *Game) {
 	b.image = assets.GopherWalkBackground
+
+	if g.myBool {
+		screen.Fill(Blackish)
+	} else {
+		screen.Fill(LightBlue)
+	}
+
+	g.Door = assets.Door
+
+	op3 := &ebiten.DrawImageOptions{}
+	op3.GeoM.Scale(0.45, 0.35)
+	op3.GeoM.Translate(2000, 316)
+	g.camera.draw(g.Door, op3)
 
 	if g.myBool {
 		op := &ebiten.DrawImageOptions{}

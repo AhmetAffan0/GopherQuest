@@ -7,7 +7,6 @@ import (
 	"github.com/hajimehoshi/ebiten/v2"
 	"github.com/hajimehoshi/ebiten/v2/ebitenutil"
 	"github.com/hajimehoshi/ebiten/v2/inpututil"
-	assets "github.com/lidldev/GameResources"
 )
 
 type Game struct {
@@ -38,34 +37,11 @@ func NewGame() *Game {
 }
 
 func (g *Game) Draw(screen *ebiten.Image) {
-	if g.myBool {
-		screen.Fill(Blackish)
-	} else {
-		screen.Fill(LightBlue)
-	}
-
 	g.camera.clear()
 
-	g.background.ChangeScene(&g.camera, g)
+	g.background.ChangeScene(screen, &g.camera, g)
 
-	g.Door = assets.Door
-
-	op3 := &ebiten.DrawImageOptions{}
-	op3.GeoM.Scale(0.45, 0.35)
-	op3.GeoM.Translate(2000, 316)
-	g.camera.draw(g.Door, op3)
-
-	s := assets.GopherIdle
-	if g.player.player.vx > 0 {
-		s = assets.GopherRight
-	} else if g.player.player.vx < 0 {
-		s = assets.GopherLeft
-	}
-
-	op2 := &ebiten.DrawImageOptions{}
-	op2.GeoM.Scale(0.3, 0.3)
-	op2.GeoM.Translate(float64(g.player.player.x)/unit, float64(g.player.player.y)/unit)
-	g.camera.draw(s, op2)
+	g.player.Draw(screen, &g.camera)
 
 	g.camera.render(screen)
 

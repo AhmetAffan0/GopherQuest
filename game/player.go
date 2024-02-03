@@ -3,6 +3,7 @@ package game
 import (
 	"github.com/hajimehoshi/ebiten/v2"
 	"github.com/hajimehoshi/ebiten/v2/inpututil"
+	assets "github.com/lidldev/GameResources"
 )
 
 type Char struct {
@@ -71,4 +72,18 @@ func (p *Player) Update() error {
 
 	p.player.update()
 	return nil
+}
+
+func (p *Player) Draw(screen *ebiten.Image, cam *camera) {
+	s := assets.GopherIdle
+	if p.player.vx > 0 {
+		s = assets.GopherRight
+	} else if p.player.vx < 0 {
+		s = assets.GopherLeft
+	}
+
+	op2 := &ebiten.DrawImageOptions{}
+	op2.GeoM.Scale(0.3, 0.3)
+	op2.GeoM.Translate(float64(p.player.x)/unit, float64(p.player.y)/unit)
+	cam.draw(s, op2)
 }
