@@ -45,13 +45,27 @@ func (g *Game) Draw(screen *ebiten.Image) {
 
 	g.camera.render(screen)
 
-	msg := fmt.Sprintf("Gopher X: %.2f, Y: %.2f", float64(g.player.player.x), float64(g.player.player.y))
+	msg := fmt.Sprintf("Gopher X: %.2f, Y: %.2f",
+		float64(g.player.player.x),
+		float64(g.player.player.y))
 	ebitenutil.DebugPrint(screen, msg)
+
+	msg2 := fmt.Sprintf("\nTPS: %.2f, FPS: %.2f, VSync: %v",
+		ebiten.ActualTPS(),
+		ebiten.ActualFPS(),
+		ebiten.IsVsyncEnabled())
+	ebitenutil.DebugPrint(screen, msg2)
 }
 
 func (g *Game) Update() error {
 	g.player.Update()
 	g.camera.setPos(g.player.player.x/unit-300, 0)
+
+	vsync := ebiten.IsVsyncEnabled()
+
+	if inpututil.IsKeyJustPressed(ebiten.KeyV) {
+		ebiten.SetVsyncEnabled(!vsync)
+	}
 
 	if g.myBool {
 
