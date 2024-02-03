@@ -25,6 +25,12 @@ const (
 	sH = 475
 )
 
+var (
+	//Background Colors
+	LightBlue = color.RGBA{0x80, 0xa0, 0xc0, 0xff} //Basically morning
+	Blackish  = color.RGBA{0, 0, 50, 250}          //Basically night
+)
+
 func NewGame() *Game {
 	g := &Game{}
 	g.camera.init()
@@ -32,7 +38,11 @@ func NewGame() *Game {
 }
 
 func (g *Game) Draw(screen *ebiten.Image) {
-	screen.Fill(color.RGBA{0x80, 0xa0, 0xc0, 0xff})
+	if g.myBool {
+		screen.Fill(Blackish)
+	} else {
+		screen.Fill(LightBlue)
+	}
 
 	g.camera.clear()
 
@@ -67,12 +77,16 @@ func (g *Game) Update() error {
 	g.player.Update()
 	g.camera.setPos(g.player.player.x/unit-300, 0)
 
-	if g.player.player.x <= -27000 {
-		g.camera.setPos(-3000, 0)
-	}
+	if g.myBool {
 
-	if g.player.player.x >= 26500 {
-		g.camera.setPos(2350, 0)
+	} else {
+		if g.player.player.x <= -27000 {
+			g.camera.setPos(-3000, 0)
+		}
+
+		if g.player.player.x >= 26500 {
+			g.camera.setPos(2350, 0)
+		}
 	}
 
 	if g.player.player.x >= 19900 && g.player.player.x <= 20500 {
