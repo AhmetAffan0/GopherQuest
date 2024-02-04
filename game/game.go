@@ -64,7 +64,7 @@ func (g *Game) Draw(screen *ebiten.Image) {
 		bigFontSize    = 48
 	)
 
-	const x = 175
+	const x = 180
 
 	op := &text.DrawOptions{}
 	op.GeoM.Translate(x, 60)
@@ -75,7 +75,7 @@ func (g *Game) Draw(screen *ebiten.Image) {
 	}, op)
 
 	op = &text.DrawOptions{}
-	op.GeoM.Translate(140, 250)
+	op.GeoM.Translate(145, 250)
 	op.ColorScale.ScaleWithColor(color.White)
 	text.Draw(screen, mytext2, &text.GoTextFace{
 		Source: fontFaceSource,
