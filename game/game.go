@@ -18,10 +18,10 @@ type Game struct {
 	camera camera
 	player Player
 
-	background Background
-	myBool     bool
-	menuOff    bool
-	Door       *ebiten.Image
+	background        Background
+	myBool            bool
+	menuOff           bool
+	DoorForFirstScene *ebiten.Image
 }
 
 const (
@@ -132,6 +132,16 @@ func (g *Game) Update() error {
 		if g.player.player.x >= 19900 && g.player.player.x <= 20500 {
 			if inpututil.IsKeyJustPressed(ebiten.KeyW) {
 				g.myBool = true
+				g.player.isBorder = true
+				//g.background.menuOn = false
+				g.player.player.x = 0
+				time.Sleep(time.Second * 1)
+			}
+		}
+
+		if g.player.player.x >= -36300 && g.player.player.x <= -35400 {
+			if inpututil.IsKeyJustPressed(ebiten.KeyW) {
+				g.myBool = false
 				g.player.isBorder = true
 				//g.background.menuOn = false
 				g.player.player.x = 0
