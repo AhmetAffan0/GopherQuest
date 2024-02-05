@@ -142,7 +142,7 @@ func (g *Game) Update() error {
 		if g.player.player.x >= -36300 && g.player.player.x <= -35400 {
 			if inpututil.IsKeyJustPressed(ebiten.KeyW) {
 				g.myBool = false
-				g.player.isBorder = true
+				g.player.isBorder = false
 				//g.background.menuOn = false
 				g.player.player.x = 0
 				time.Sleep(time.Second * 1)
