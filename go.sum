@@ -20,6 +20,12 @@ github.com/lidldev/GameResources v0.0.0-20240202154109-c888664143f3 h1:HGLpIOi1h
 github.com/lidldev/GameResources v0.0.0-20240202154109-c888664143f3/go.mod h1:k+8QtAyWKnUdjV6s0k+VJaUAHf5XLYRWbckkOxbCLlw=
 github.com/lidldev/GameResources v0.0.0-20240204151317-5c6f11ce8592 h1:Tkik/0k7BuP2/yCIMLdC/L1JGjFfjbpp9DXWqpTSrfU=
 github.com/lidldev/GameResources v0.0.0-20240204151317-5c6f11ce8592/go.mod h1:k+8QtAyWKnUdjV6s0k+VJaUAHf5XLYRWbckkOxbCLlw=
+github.com/lidldev/GameResources v0.0.0-20240210185737-fe9c7e0d4abd h1:Vg3IQC+5ABWiM7OyuP4YFRM3GgdfVohiqQL3j6HCMaI=
+github.com/lidldev/GameResources v0.0.0-20240210185737-fe9c7e0d4abd/go.mod h1:k+8QtAyWKnUdjV6s0k+VJaUAHf5XLYRWbckkOxbCLlw=
+github.com/lidldev/GameResources v0.0.0-20240210192835-7b72ea0fb64c h1:M61r41LvrrjK6bmgkbd0JC4td3gbhfEjObQloF9hR0U=
+github.com/lidldev/GameResources v0.0.0-20240210192835-7b72ea0fb64c/go.mod h1:k+8QtAyWKnUdjV6s0k+VJaUAHf5XLYRWbckkOxbCLlw=
+github.com/lidldev/GameResources v0.0.0-20240210193026-2c3f6ab49ca4 h1:5cNsCHdY4dkASl39gSw9Pi/u6Y3kRGjAltoBu3fD/OY=
+github.com/lidldev/GameResources v0.0.0-20240210193026-2c3f6ab49ca4/go.mod h1:k+8QtAyWKnUdjV6s0k+VJaUAHf5XLYRWbckkOxbCLlw=
 github.com/yuin/goldmark v1.4.13/go.mod h1:6yULJ656Px+3vBD8DxQVa3kxgyrAnzto9xy5taEt/CY=
 golang.org/x/crypto v0.0.0-20190308221718-c2843e01d9a2/go.mod h1:djNgcEr1/C05ACkg1iLfiJU5Ep61QUkGW8qpdssI0+w=
 golang.org/x/crypto v0.0.0-20210921155107-089bfa567519/go.mod h1:GvvjBRRGRdwPK5ydBHafDWAxML/pGHZbMvKqRZ5+Abc=

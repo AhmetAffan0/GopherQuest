@@ -4,7 +4,7 @@ go 1.21.6
 
 require github.com/hajimehoshi/ebiten/v2 v2.7.0-alpha.7
 
-require github.com/lidldev/GameResources v0.0.0-20240204151317-5c6f11ce8592
+require github.com/lidldev/GameResources v0.0.0-20240210193026-2c3f6ab49ca4
 
 require (
 	github.com/ebitengine/hideconsole v0.1.1-0.20240128160611-57e7b6b00abd // indirect

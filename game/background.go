@@ -30,6 +30,10 @@ func (b *Background) ChangeScene(screen *ebiten.Image, c *camera, g *Game) {
 			op2.GeoM.Scale(0.45, 0.35)
 			op2.GeoM.Translate(-3600, 316)
 			c.draw(assets.Door, op2)
+			op4 := &ebiten.DrawImageOptions{}
+			op4.GeoM.Scale(0.35, 0.35)
+			op4.GeoM.Translate(-1000, 350)
+			c.draw(assets.AmongUsChar, op4)
 		} else if !g.myBool {
 			op := &ebiten.DrawImageOptions{}
 			op.GeoM.Scale(1, 0.8)
