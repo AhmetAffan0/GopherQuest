@@ -30,6 +30,8 @@ func (b *Background) ChangeScene(screen *ebiten.Image, c *camera, g *Game) {
 	op5.GeoM.Scale(0.45, 0.35)
 	op5.GeoM.Translate(2000, 316)
 
+	//b.n.AmogusPos(2000, -300)
+
 	if g.menuOff {
 		if g.myBool {
 			screen.Fill(Blackish)
@@ -42,7 +44,7 @@ func (b *Background) ChangeScene(screen *ebiten.Image, c *camera, g *Game) {
 		if g.myBool {
 			c.draw(assets.GopherWalkBackground2, op)
 			c.draw(assets.Door, op3)
-			b.n.drawAmogus(*g, *c)
+			b.n.drawAmogus(*c)
 		} else if !g.myBool {
 			c.draw(assets.GopherWalkBackground, op2)
 			g.camera.draw(assets.Door, op5)

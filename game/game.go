@@ -17,6 +17,7 @@ import (
 type Game struct {
 	camera camera
 	player Player
+	npc    NPC
 
 	background        Background
 	myBool            bool
@@ -92,8 +93,8 @@ func (g *Game) Draw(screen *ebiten.Image) {
 		g.camera.render(screen)
 
 		msg := fmt.Sprintf("Gopher X: %.2f, Y: %.2f",
-			float64(g.player.player.x),
-			float64(g.player.player.y))
+			float64(g.player.player.x)/unit,
+			float64(g.player.player.y)/unit)
 		ebitenutil.DebugPrint(screen, msg)
 
 		msg2 := fmt.Sprintf("\nTPS: %.2f, FPS: %.2f, VSync: %v",
@@ -101,6 +102,12 @@ func (g *Game) Draw(screen *ebiten.Image) {
 			ebiten.ActualFPS(),
 			ebiten.IsVsyncEnabled())
 		ebitenutil.DebugPrint(screen, msg2)
+
+		msg3 := fmt.Sprintf("\n\nNPC X: %.2f, NPC Y: %.2f",
+			g.npc.x,
+			g.npc.y)
+		ebitenutil.DebugPrint(screen, msg3)
+		g.npc.conversation(*g, screen)
 	}
 }
 

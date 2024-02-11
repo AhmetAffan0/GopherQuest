@@ -1,7 +1,11 @@
 package game
 
 import (
+	"fmt"
+	"math"
+
 	"github.com/hajimehoshi/ebiten/v2"
+	"github.com/hajimehoshi/ebiten/v2/ebitenutil"
 	assets "github.com/lidldev/GameResources"
 )
 
@@ -11,19 +15,25 @@ type NPC struct {
 	amogus *ebiten.Image
 }
 
-func (n *NPC) AmogusPos(x, y int) {
-	n.x = float64(x)
-	n.y = float64(y)
+func (n *NPC) AmogusPos(x, y float64) {
+	n.x = x
+	n.y = y
 }
 
-func (n *NPC) drawAmogus(g Game, c camera) {
+func (n *NPC) drawAmogus(c camera) {
 	n.amogus = assets.AmongUsChar
+	n.AmogusPos(2000, -350)
 
-	n.x = 2000
-	n.y = 350
+	op := &ebiten.DrawImageOptions{}
+	op.GeoM.Scale(0.35, 0.35)
+	op.GeoM.Translate(-n.x, -n.y)
+	c.draw(n.amogus, op)
+}
 
-	op4 := &ebiten.DrawImageOptions{}
-	op4.GeoM.Scale(0.35, 0.35)
-	op4.GeoM.Translate(-n.x, n.y)
-	c.draw(n.amogus, op4)
+func (n *NPC) conversation(g Game, screen *ebiten.Image) {
+	d := math.Sqrt(math.Pow(n.y-float64(g.player.player.y), 2)/unit + math.Pow(n.x-float64(g.player.player.x), 2)/unit)
+
+	msg := fmt.Sprintf("\n\n\n\n%.2f", d)
+	ebitenutil.DebugPrint(screen, msg)
+
 }
