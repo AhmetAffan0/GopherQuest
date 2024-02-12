@@ -19,6 +19,7 @@ type Game struct {
 	//npc    NPC
 
 	background        Background
+	isDebugModeOn     bool
 	myBool            bool
 	menuOff           bool
 	DoorForFirstScene *ebiten.Image
@@ -64,6 +65,8 @@ func (g *Game) Draw(screen *ebiten.Image) {
 		bigFontSize    = 48
 	)
 
+	g.debug.debugUtils(screen, *g, g.player, g.camera)
+
 	const x = 180
 
 	op := &text.DrawOptions{}
@@ -82,7 +85,26 @@ func (g *Game) Draw(screen *ebiten.Image) {
 		Size:   normalFontSize,
 	}, op)
 
-	g.debug.debugUtils(screen, *g)
+	/*
+		if g.isDebugModeOn {
+			msg := fmt.Sprintf("Gopher X: %.2f, Y: %.2f",
+				float64(g.player.player.x),
+				float64(g.player.player.y))
+			ebitenutil.DebugPrintAt(screen, msg, g.player.player.x/unit-g.camera.x-70, g.player.player.y/unit-g.camera.y-10)
+
+			msg2 := fmt.Sprintf("TPS: %.2f, FPS: %.2f, VSync: %v",
+				ebiten.ActualTPS(),
+				ebiten.ActualFPS(),
+				ebiten.IsVsyncEnabled())
+			ebitenutil.DebugPrint(screen, msg2)
+
+			// msg3 := fmt.Sprintf("\n\nNPC X: %.2f, NPC Y: %.2f",
+			// 	g.npc.x,
+			// 	g.npc.y)
+			// ebitenutil.DebugPrint(screen, msg3)
+			// g.npc.conversation(*g, screen)
+		}
+	*/
 
 	if g.menuOff {
 		g.camera.clear()
@@ -122,7 +144,6 @@ func (g *Game) Update() error {
 	if g.menuOff {
 		g.player.Update()
 		g.camera.setPos(g.player.player.x/unit-300, 0)
-		g.debug.debugMode(*g)
 
 		vsync := ebiten.IsVsyncEnabled()
 
@@ -159,6 +180,10 @@ func (g *Game) Update() error {
 				g.player.player.x = 0
 				time.Sleep(time.Second * 1)
 			}
+		}
+
+		if inpututil.IsKeyJustPressed(ebiten.KeyT) {
+			g.isDebugModeOn = true
 		}
 	}
 
