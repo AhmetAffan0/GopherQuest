@@ -2,13 +2,11 @@ package game
 
 import (
 	"bytes"
-	"fmt"
 	"image/color"
 	"log"
 	"time"
 
 	"github.com/hajimehoshi/ebiten/v2"
-	"github.com/hajimehoshi/ebiten/v2/ebitenutil"
 	"github.com/hajimehoshi/ebiten/v2/inpututil"
 	"github.com/hajimehoshi/ebiten/v2/text/v2"
 	assets "github.com/lidldev/GameResources"
@@ -17,7 +15,8 @@ import (
 type Game struct {
 	camera camera
 	player Player
-	npc    NPC
+	debug  debugMode
+	//npc    NPC
 
 	background        Background
 	myBool            bool
@@ -83,6 +82,8 @@ func (g *Game) Draw(screen *ebiten.Image) {
 		Size:   normalFontSize,
 	}, op)
 
+	g.debug.debugUtils(screen, *g)
+
 	if g.menuOff {
 		g.camera.clear()
 
@@ -92,22 +93,24 @@ func (g *Game) Draw(screen *ebiten.Image) {
 
 		g.camera.render(screen)
 
-		msg := fmt.Sprintf("Gopher X: %.2f, Y: %.2f",
-			float64(g.player.player.x)/unit,
-			float64(g.player.player.y)/unit)
-		ebitenutil.DebugPrint(screen, msg)
+		/*
+			msg := fmt.Sprintf("Gopher X: %.2f, Y: %.2f",
+				float64(g.player.player.x),
+				float64(g.player.player.y))
+			ebitenutil.DebugPrintAt(screen, msg, g.player.player.x/unit-g.camera.x-70, g.player.player.y/unit-g.camera.y-10)
 
-		msg2 := fmt.Sprintf("\nTPS: %.2f, FPS: %.2f, VSync: %v",
-			ebiten.ActualTPS(),
-			ebiten.ActualFPS(),
-			ebiten.IsVsyncEnabled())
-		ebitenutil.DebugPrint(screen, msg2)
+			msg2 := fmt.Sprintf("\nTPS: %.2f, FPS: %.2f, VSync: %v",
+				ebiten.ActualTPS(),
+				ebiten.ActualFPS(),
+				ebiten.IsVsyncEnabled())
+			ebitenutil.DebugPrint(screen, msg2)
 
-		msg3 := fmt.Sprintf("\n\nNPC X: %.2f, NPC Y: %.2f",
-			g.npc.x,
-			g.npc.y)
-		ebitenutil.DebugPrint(screen, msg3)
-		g.npc.conversation(*g, screen)
+			// msg3 := fmt.Sprintf("\n\nNPC X: %.2f, NPC Y: %.2f",
+			// 	g.npc.x,
+			// 	g.npc.y)
+			// ebitenutil.DebugPrint(screen, msg3)
+			// g.npc.conversation(*g, screen)
+		*/
 	}
 }
 
@@ -115,9 +118,11 @@ func (g *Game) Update() error {
 	if inpututil.IsKeyJustPressed(ebiten.KeyEnter) {
 		g.menuOff = true
 	}
+
 	if g.menuOff {
 		g.player.Update()
 		g.camera.setPos(g.player.player.x/unit-300, 0)
+		g.debug.debugMode(*g)
 
 		vsync := ebiten.IsVsyncEnabled()
 

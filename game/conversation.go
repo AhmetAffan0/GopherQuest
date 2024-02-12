@@ -2,7 +2,6 @@ package game
 
 import (
 	"fmt"
-	"math"
 
 	"github.com/hajimehoshi/ebiten/v2"
 	"github.com/hajimehoshi/ebiten/v2/ebitenutil"
@@ -31,9 +30,12 @@ func (n *NPC) drawAmogus(c camera) {
 }
 
 func (n *NPC) conversation(g Game, screen *ebiten.Image) {
-	d := math.Sqrt(math.Pow(n.y-float64(g.player.player.y), 2)/unit + math.Pow(n.x-float64(g.player.player.x), 2)/unit)
+	//d := math.Sqrt(math.Pow(n.y-float64(g.player.player.y), 2)/unit + math.Pow(n.x-float64(g.player.player.x), 2)/unit)
 
-	msg := fmt.Sprintf("\n\n\n\n%.2f", d)
-	ebitenutil.DebugPrint(screen, msg)
-
+	if g.myBool {
+		if g.player.player.x < -18200 && g.player.player.x > -20900 {
+			msg := fmt.Sprintln("\n\n\nim not gay")
+			ebitenutil.DebugPrint(screen, msg)
+		}
+	}
 }
