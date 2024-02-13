@@ -1,7 +1,10 @@
 package game
 
 import (
+	"fmt"
+
 	"github.com/hajimehoshi/ebiten/v2"
+	"github.com/hajimehoshi/ebiten/v2/ebitenutil"
 	"github.com/hajimehoshi/ebiten/v2/inpututil"
 	assets "github.com/lidldev/GameResources"
 )
@@ -42,8 +45,9 @@ func (c *Char) update() {
 }
 
 type Player struct {
-	player   *Char
-	isBorder bool
+	player        *Char
+	isBorder      bool
+	isDebugModeOn bool
 }
 
 func (p *Player) Update() error {
@@ -74,16 +78,22 @@ func (p *Player) Update() error {
 	return nil
 }
 
-func (p *Player) Draw(screen *ebiten.Image, cam *camera) {
+func (p *Player) Draw(screen *ebiten.Image, cam *camera, g Game) {
 	s := assets.GopherIdle
 	if p.player.vx > 0 {
 		s = assets.GopherRight
 	} else if p.player.vx < 0 {
 		s = assets.GopherLeft
 	}
-
 	op2 := &ebiten.DrawImageOptions{}
 	op2.GeoM.Scale(0.3, 0.3)
 	op2.GeoM.Translate(float64(p.player.x)/unit, float64(p.player.y)/unit)
 	cam.draw(s, op2)
+
+	if g.isDebugModeOn {
+		msg := fmt.Sprintf("Gopher X: %.2f, Y: %.2f",
+			float64(p.player.x),
+			float64(p.player.y))
+		ebitenutil.DebugPrintAt(screen, msg, p.player.x/unit-cam.x-70, p.player.y/unit-cam.y-10)
+	}
 }

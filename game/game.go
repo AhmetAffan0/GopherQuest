@@ -2,11 +2,13 @@ package game
 
 import (
 	"bytes"
+	"fmt"
 	"image/color"
 	"log"
 	"time"
 
 	"github.com/hajimehoshi/ebiten/v2"
+	"github.com/hajimehoshi/ebiten/v2/ebitenutil"
 	"github.com/hajimehoshi/ebiten/v2/inpututil"
 	"github.com/hajimehoshi/ebiten/v2/text/v2"
 	assets "github.com/lidldev/GameResources"
@@ -15,7 +17,6 @@ import (
 type Game struct {
 	camera camera
 	player Player
-	debug  debugMode
 	//npc    NPC
 
 	background        Background
@@ -65,8 +66,6 @@ func (g *Game) Draw(screen *ebiten.Image) {
 		bigFontSize    = 48
 	)
 
-	g.debug.debugUtils(screen, *g, g.player, g.camera)
-
 	const x = 180
 
 	op := &text.DrawOptions{}
@@ -85,54 +84,34 @@ func (g *Game) Draw(screen *ebiten.Image) {
 		Size:   normalFontSize,
 	}, op)
 
-	/*
-		if g.isDebugModeOn {
-			msg := fmt.Sprintf("Gopher X: %.2f, Y: %.2f",
-				float64(g.player.player.x),
-				float64(g.player.player.y))
-			ebitenutil.DebugPrintAt(screen, msg, g.player.player.x/unit-g.camera.x-70, g.player.player.y/unit-g.camera.y-10)
-
-			msg2 := fmt.Sprintf("TPS: %.2f, FPS: %.2f, VSync: %v",
-				ebiten.ActualTPS(),
-				ebiten.ActualFPS(),
-				ebiten.IsVsyncEnabled())
-			ebitenutil.DebugPrint(screen, msg2)
-
-			// msg3 := fmt.Sprintf("\n\nNPC X: %.2f, NPC Y: %.2f",
-			// 	g.npc.x,
-			// 	g.npc.y)
-			// ebitenutil.DebugPrint(screen, msg3)
-			// g.npc.conversation(*g, screen)
-		}
-	*/
-
 	if g.menuOff {
 		g.camera.clear()
 
 		g.background.ChangeScene(screen, &g.camera, g)
 
-		g.player.Draw(screen, &g.camera)
+		g.player.Draw(screen, &g.camera, *g)
 
 		g.camera.render(screen)
 
-		/*
-			msg := fmt.Sprintf("Gopher X: %.2f, Y: %.2f",
-				float64(g.player.player.x),
-				float64(g.player.player.y))
-			ebitenutil.DebugPrintAt(screen, msg, g.player.player.x/unit-g.camera.x-70, g.player.player.y/unit-g.camera.y-10)
-
-			msg2 := fmt.Sprintf("\nTPS: %.2f, FPS: %.2f, VSync: %v",
+		if g.isDebugModeOn {
+			msg2 := fmt.Sprintf("TPS: %.2f, FPS: %.2f, VSync: %v",
 				ebiten.ActualTPS(),
 				ebiten.ActualFPS(),
 				ebiten.IsVsyncEnabled())
 			ebitenutil.DebugPrint(screen, msg2)
+		}
+	}
+}
 
-			// msg3 := fmt.Sprintf("\n\nNPC X: %.2f, NPC Y: %.2f",
-			// 	g.npc.x,
-			// 	g.npc.y)
-			// ebitenutil.DebugPrint(screen, msg3)
-			// g.npc.conversation(*g, screen)
-		*/
+func (g *Game) debugMode() bool {
+	return g.isDebugModeOn
+}
+
+func (g *Game) isDebugMode(enabled bool) {
+	if enabled {
+		g.isDebugModeOn = true
+	} else {
+		g.isDebugModeOn = false
 	}
 }
 
@@ -144,6 +123,12 @@ func (g *Game) Update() error {
 	if g.menuOff {
 		g.player.Update()
 		g.camera.setPos(g.player.player.x/unit-300, 0)
+
+		debugMode := g.debugMode()
+
+		if inpututil.IsKeyJustPressed(ebiten.KeyT) {
+			g.isDebugMode(!debugMode)
+		}
 
 		vsync := ebiten.IsVsyncEnabled()
 
@@ -180,10 +165,6 @@ func (g *Game) Update() error {
 				g.player.player.x = 0
 				time.Sleep(time.Second * 1)
 			}
-		}
-
-		if inpututil.IsKeyJustPressed(ebiten.KeyT) {
-			g.isDebugModeOn = true
 		}
 	}
 
