@@ -34,7 +34,7 @@ func (n *NPC) conversation(g Game, screen *ebiten.Image) {
 
 	if g.myBool {
 		if g.player.player.x < -18200 && g.player.player.x > -20900 {
-			msg := fmt.Sprintln("\n\n\nim not gay")
+			msg := fmt.Sprintln("\nI love ebitengine community")
 			ebitenutil.DebugPrint(screen, msg)
 		}
 	}

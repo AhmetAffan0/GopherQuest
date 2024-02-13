@@ -45,9 +45,8 @@ func (c *Char) update() {
 }
 
 type Player struct {
-	player        *Char
-	isBorder      bool
-	isDebugModeOn bool
+	player   *Char
+	isBorder bool
 }
 
 func (p *Player) Update() error {
@@ -85,6 +84,7 @@ func (p *Player) Draw(screen *ebiten.Image, cam *camera, g Game) {
 	} else if p.player.vx < 0 {
 		s = assets.GopherLeft
 	}
+
 	op2 := &ebiten.DrawImageOptions{}
 	op2.GeoM.Scale(0.3, 0.3)
 	op2.GeoM.Translate(float64(p.player.x)/unit, float64(p.player.y)/unit)

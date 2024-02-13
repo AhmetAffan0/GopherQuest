@@ -17,7 +17,7 @@ import (
 type Game struct {
 	camera camera
 	player Player
-	//npc    NPC
+	npc    NPC
 
 	background        Background
 	isDebugModeOn     bool
@@ -99,6 +99,8 @@ func (g *Game) Draw(screen *ebiten.Image) {
 				ebiten.ActualFPS(),
 				ebiten.IsVsyncEnabled())
 			ebitenutil.DebugPrint(screen, msg2)
+
+			g.npc.conversation(*g, screen)
 		}
 	}
 }
@@ -126,7 +128,7 @@ func (g *Game) Update() error {
 
 		debugMode := g.debugMode()
 
-		if inpututil.IsKeyJustPressed(ebiten.KeyT) {
+		if inpututil.IsKeyJustPressed(ebiten.KeyL) {
 			g.isDebugMode(!debugMode)
 		}
 
