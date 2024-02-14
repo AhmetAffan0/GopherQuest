@@ -1,8 +1,8 @@
 package game
 
 import (
+	"fmt"
 	"image/color"
-	"log"
 
 	"github.com/hajimehoshi/ebiten/v2"
 	"github.com/hajimehoshi/ebiten/v2/inpututil"
@@ -37,6 +37,9 @@ func (n *NPC) conversation(g Game, screen *ebiten.Image) {
 		bigFontSize    = 48
 	)
 
+	impText := fmt.Sprintln("Press E To Interact")
+	nextText := fmt.Sprintln("Have You Ever Heard Of Among Us?")
+
 	const x = 220
 
 	rect := ebiten.NewImage(500, 100)
@@ -50,15 +53,22 @@ func (n *NPC) conversation(g Game, screen *ebiten.Image) {
 
 			op3 := &text.DrawOptions{}
 			op3.GeoM.Translate(x, 102)
-			op3.ColorScale.ScaleWithColor(color.White)
+			op3.ColorScale.ScaleWithColor(color.RGBA{0x80, 0xa0, 0xc0, 0xff})
 
-			text.Draw(screen, "Press E To Interact", &text.GoTextFace{
+			text.Draw(screen, impText, &text.GoTextFace{
 				Source: fontFaceSource2,
 				Size:   normalFontSize,
 			}, op3)
 
 			if inpututil.IsKeyJustPressed(ebiten.KeyE) {
-				log.Println("It Works")
+				op4 := &text.DrawOptions{}
+				op4.GeoM.Translate(x, 102)
+				op4.ColorScale.ScaleWithColor(color.RGBA{0x80, 0xa0, 0xc0, 0xff})
+
+				text.Draw(screen, nextText, &text.GoTextFace{
+					Source: fontFaceSource2,
+					Size:   normalFontSize,
+				}, op4)
 			}
 		}
 	}
