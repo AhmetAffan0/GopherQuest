@@ -1,10 +1,12 @@
 package game
 
 import (
-	"fmt"
+	"image/color"
+	"log"
 
 	"github.com/hajimehoshi/ebiten/v2"
-	"github.com/hajimehoshi/ebiten/v2/ebitenutil"
+	"github.com/hajimehoshi/ebiten/v2/inpututil"
+	"github.com/hajimehoshi/ebiten/v2/text/v2"
 	assets "github.com/lidldev/GameResources"
 )
 
@@ -30,12 +32,34 @@ func (n *NPC) drawAmogus(c camera) {
 }
 
 func (n *NPC) conversation(g Game, screen *ebiten.Image) {
-	//d := math.Sqrt(math.Pow(n.y-float64(g.player.player.y), 2)/unit + math.Pow(n.x-float64(g.player.player.x), 2)/unit)
+	const (
+		normalFontSize = 24
+		bigFontSize    = 48
+	)
+
+	const x = 220
+
+	rect := ebiten.NewImage(500, 100)
+	rect.Fill(color.RGBA{100, 100, 100, 100})
 
 	if g.myBool {
 		if g.player.player.x < -18200 && g.player.player.x > -20900 {
-			msg := fmt.Sprintln("\nI love ebitengine community")
-			ebitenutil.DebugPrint(screen, msg)
+			op := &ebiten.DrawImageOptions{}
+			op.GeoM.Translate(70, 70)
+			screen.DrawImage(rect, op)
+
+			op3 := &text.DrawOptions{}
+			op3.GeoM.Translate(x, 102)
+			op3.ColorScale.ScaleWithColor(color.White)
+
+			text.Draw(screen, "Press E To Interact", &text.GoTextFace{
+				Source: fontFaceSource2,
+				Size:   normalFontSize,
+			}, op3)
+
+			if inpututil.IsKeyJustPressed(ebiten.KeyE) {
+				log.Println("It Works")
+			}
 		}
 	}
 }

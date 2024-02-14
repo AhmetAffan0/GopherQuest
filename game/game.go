@@ -38,7 +38,8 @@ var (
 )
 
 var (
-	fontFaceSource *text.GoTextFaceSource
+	fontFaceSource  *text.GoTextFaceSource
+	fontFaceSource2 *text.GoTextFaceSource
 )
 
 func init() {
@@ -47,6 +48,12 @@ func init() {
 		log.Fatal(err)
 	}
 	fontFaceSource = s
+
+	s2, err := text.NewGoTextFaceSource(bytes.NewReader(assets.Sans_ttf))
+	if err != nil {
+		log.Fatal(err)
+	}
+	fontFaceSource2 = s2
 }
 
 func NewGame() *Game {
@@ -99,9 +106,9 @@ func (g *Game) Draw(screen *ebiten.Image) {
 				ebiten.ActualFPS(),
 				ebiten.IsVsyncEnabled())
 			ebitenutil.DebugPrint(screen, msg2)
-
-			g.npc.conversation(*g, screen)
 		}
+
+		g.npc.conversation(*g, screen)
 	}
 }
 
