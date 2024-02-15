@@ -5,6 +5,7 @@ import (
 	"image/color"
 
 	"github.com/hajimehoshi/ebiten/v2"
+	"github.com/hajimehoshi/ebiten/v2/inpututil"
 	"github.com/hajimehoshi/ebiten/v2/text/v2"
 	assets "github.com/lidldev/GameResources"
 )
@@ -64,7 +65,6 @@ func (n *NPC) otherText1(screen *ebiten.Image) {
 }
 
 func (n *NPC) conversation(g Game, screen *ebiten.Image) {
-
 	rect := ebiten.NewImage(500, 100)
 	rect.Fill(color.RGBA{100, 100, 100, 100})
 
@@ -76,7 +76,10 @@ func (n *NPC) conversation(g Game, screen *ebiten.Image) {
 
 			n.mainText(screen)
 
-			n.otherText1(screen)
+			if inpututil.IsKeyJustPressed(ebiten.KeyE) {
+				rect.Clear()
+				n.otherText1(screen)
+			}
 		}
 	}
 }
