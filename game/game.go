@@ -108,7 +108,7 @@ func (g *Game) Draw(screen *ebiten.Image) {
 			ebitenutil.DebugPrint(screen, msg2)
 		}
 
-		g.npc.conversation(*g, screen)
+		g.npc.conversation(g, screen)
 	}
 }
 
