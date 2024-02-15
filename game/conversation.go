@@ -1,7 +1,6 @@
 package game
 
 import (
-	"fmt"
 	"image/color"
 
 	"github.com/hajimehoshi/ebiten/v2"
@@ -39,34 +38,50 @@ func (n *NPC) drawAmogus(c camera) {
 	c.draw(n.amogus, op)
 }
 
-func (n *NPC) mainText(screen *ebiten.Image) {
-	impText := fmt.Sprintln("Press E To Interact")
+var (
+	textArr []string
+)
+
+func (n *NPC) mainText(screen *ebiten.Image, g *Game) {
+	//impText := fmt.Sprintln("Press E To Interact")
+	textArr = append(textArr, "Press E To Interact", "Have You Ever Heard Of Among Us?")
 
 	op3 := &text.DrawOptions{}
 	op3.GeoM.Translate(x, 102)
 	op3.ColorScale.ScaleWithColor(color.RGBA{0x80, 0xa0, 0xc0, 0xff})
 
-	text.Draw(screen, impText, &text.GoTextFace{
-		Source: fontFaceSource2,
-		Size:   normalFontSize,
-	}, op3)
-}
-
-func (n *NPC) otherText1(screen *ebiten.Image) {
-	nextText := fmt.Sprintln("Have You Ever Heard Of Among Us?")
 	op4 := &text.DrawOptions{}
-	op4.GeoM.Translate(x, 102)
+	op4.GeoM.Translate(120, 102)
 	op4.ColorScale.ScaleWithColor(color.RGBA{0x80, 0xa0, 0xc0, 0xff})
 
-	text.Draw(screen, nextText, &text.GoTextFace{
-		Source: fontFaceSource2,
-		Size:   normalFontSize,
-	}, op4)
+	if !n.isPressed {
+		text.Draw(screen, textArr[0], &text.GoTextFace{
+			Source: fontFaceSource2,
+			Size:   normalFontSize,
+		}, op3)
+	} else {
+		text.Draw(screen, textArr[1], &text.GoTextFace{
+			Source: fontFaceSource2,
+			Size:   normalFontSize,
+		}, op4)
+	}
 }
 
-func (n *NPC) conversation(g Game, screen *ebiten.Image) {
+func (n *NPC) textMode() bool {
+	return n.isPressed
+}
+
+func (n *NPC) isTextMode(enabled bool) {
+	if enabled {
+		n.isPressed = true
+	}
+}
+
+func (n *NPC) conversation(g *Game, screen *ebiten.Image) {
 	rect := ebiten.NewImage(500, 100)
 	rect.Fill(color.RGBA{100, 100, 100, 100})
+
+	isEnabled := n.textMode()
 
 	if g.myBool {
 		if g.player.player.x < -18200 && g.player.player.x > -20900 {
@@ -74,11 +89,11 @@ func (n *NPC) conversation(g Game, screen *ebiten.Image) {
 			op.GeoM.Translate(70, 70)
 			screen.DrawImage(rect, op)
 
-			n.mainText(screen)
+			n.mainText(screen, g)
 
 			if inpututil.IsKeyJustPressed(ebiten.KeyE) {
-				rect.Clear()
-				n.otherText1(screen)
+				n.isTextMode(!isEnabled)
+				n.mainText(screen, g)
 			}
 		}
 	}
