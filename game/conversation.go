@@ -95,6 +95,8 @@ func (n *NPC) conversation(g *Game, screen *ebiten.Image) {
 				n.isTextMode(!isEnabled)
 				n.mainText(screen, g)
 			}
+		} else {
+			n.isPressed = false
 		}
 	}
 }
