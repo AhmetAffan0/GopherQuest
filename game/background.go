@@ -2,9 +2,9 @@ package game
 
 import (
 	"image/color"
+	"main/assets"
 
 	"github.com/hajimehoshi/ebiten/v2"
-	assets "github.com/lidldev/GameResources"
 )
 
 type Background struct {

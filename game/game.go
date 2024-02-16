@@ -5,13 +5,13 @@ import (
 	"fmt"
 	"image/color"
 	"log"
+	"main/assets"
 	"time"
 
 	"github.com/hajimehoshi/ebiten/v2"
 	"github.com/hajimehoshi/ebiten/v2/ebitenutil"
 	"github.com/hajimehoshi/ebiten/v2/inpututil"
 	"github.com/hajimehoshi/ebiten/v2/text/v2"
-	assets "github.com/lidldev/GameResources"
 )
 
 type Game struct {

@@ -2,11 +2,11 @@ package game
 
 import (
 	"image/color"
+	"main/assets"
 
 	"github.com/hajimehoshi/ebiten/v2"
 	"github.com/hajimehoshi/ebiten/v2/inpututil"
 	"github.com/hajimehoshi/ebiten/v2/text/v2"
-	assets "github.com/lidldev/GameResources"
 )
 
 type NPC struct {

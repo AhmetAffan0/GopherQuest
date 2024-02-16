@@ -2,11 +2,11 @@ package game
 
 import (
 	"fmt"
+	"main/assets"
 
 	"github.com/hajimehoshi/ebiten/v2"
 	"github.com/hajimehoshi/ebiten/v2/ebitenutil"
 	"github.com/hajimehoshi/ebiten/v2/inpututil"
-	assets "github.com/lidldev/GameResources"
 )
 
 type Char struct {
