@@ -2,6 +2,7 @@ package game
 
 import (
 	"bytes"
+	_ "embed"
 	"fmt"
 	"image/color"
 	"log"
@@ -9,15 +10,58 @@ import (
 	"time"
 
 	"github.com/hajimehoshi/ebiten/v2"
+	"github.com/hajimehoshi/ebiten/v2/audio"
+	"github.com/hajimehoshi/ebiten/v2/audio/vorbis"
 	"github.com/hajimehoshi/ebiten/v2/ebitenutil"
 	"github.com/hajimehoshi/ebiten/v2/inpututil"
 	"github.com/hajimehoshi/ebiten/v2/text/v2"
 )
 
+//go:embed lofi.ogg
+var audioBGM []byte
+
+type Sound struct {
+	player       *audio.Player
+	audioContext *audio.Context
+}
+
+const (
+	screenWidth    = 640
+	screenHeight   = 480
+	sampleRate     = 48000
+	bytesPerSample = 4
+
+	introLengthInSecond = 5
+	loopLengthInSecond  = 4
+)
+
+func (s *Sound) SoundFunc() {
+	if s.audioContext == nil {
+		s.audioContext = audio.NewContext(sampleRate)
+	}
+
+	// Decode an Ogg file.
+	// oggS is a decoded io.ReadCloser and io.Seeker.
+	oggS, err := vorbis.DecodeWithoutResampling(bytes.NewReader(audioBGM))
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	sound := audio.NewInfiniteLoopWithIntro(oggS, introLengthInSecond*bytesPerSample*sampleRate, loopLengthInSecond*bytesPerSample*sampleRate)
+
+	s.player, err = s.audioContext.NewPlayer(sound)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	s.player.Play()
+}
+
 type Game struct {
 	camera camera
 	player Player
 	npc    NPC
+	s      Sound
 
 	background        Background
 	isDebugModeOn     bool
@@ -125,6 +169,7 @@ func (g *Game) isDebugMode(enabled bool) {
 }
 
 func (g *Game) Update() error {
+	g.s.SoundFunc()
 	if inpututil.IsKeyJustPressed(ebiten.KeyEnter) {
 		g.menuOff = true
 	}
