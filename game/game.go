@@ -32,7 +32,7 @@ const (
 	bytesPerSample = 4
 
 	introLengthInSecond = 5
-	loopLengthInSecond  = 4
+	loopLengthInSecond  = 180
 )
 
 func (s *Sound) SoundFunc() {
@@ -40,8 +40,6 @@ func (s *Sound) SoundFunc() {
 		s.audioContext = audio.NewContext(sampleRate)
 	}
 
-	// Decode an Ogg file.
-	// oggS is a decoded io.ReadCloser and io.Seeker.
 	oggS, err := vorbis.DecodeWithoutResampling(bytes.NewReader(audioBGM))
 	if err != nil {
 		log.Fatal(err)
@@ -103,6 +101,7 @@ func init() {
 func NewGame() *Game {
 	g := &Game{}
 	g.camera.init()
+	g.s.SoundFunc()
 	return g
 }
 
@@ -169,7 +168,6 @@ func (g *Game) isDebugMode(enabled bool) {
 }
 
 func (g *Game) Update() error {
-	g.s.SoundFunc()
 	if inpututil.IsKeyJustPressed(ebiten.KeyEnter) {
 		g.menuOff = true
 	}
