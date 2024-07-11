@@ -1,10 +1,6 @@
 # Gopher Walk
 
-That's my first functional game!
-I love writing games
-
-TODO: add optional font
-
+My Milstone...
 
 <img width="637" alt="Screenshot 2024-06-28 at 12 06 58" src="https://github.com/lidldev/GopherWalk/assets/118509044/6f1213ba-e166-468a-86ae-0d50096d9238">
 
