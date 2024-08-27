@@ -18,5 +18,3 @@ func main() {
 		panic(err)
 	}
 }
-
-//niğgffg
